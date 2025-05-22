@@ -1,4 +1,230 @@
- <h2>📸 Malmö i bilder</h2>
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Torg i Malmö</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f39c12;
+            color: #2c3e50;
+        }
+        header {
+            background-color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        nav {
+            background-color: #2c3e50;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .container {
+            padding: 20px;
+            max-width: 1000px;
+            margin: auto;
+        }
+        .torg {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .torg:hover {
+            transform: scale(1.01);
+        }
+        .torg img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+            border-radius: 10px;
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #2c3e50;
+            color: white;
+        }
+        .top-link {
+            display: block;
+            text-align: right;
+            margin-top: -20px;
+            margin-bottom: 20px;
+        }
+        .top-link a {
+            text-decoration: none;
+            color: #2980b9;
+            font-weight: bold;
+        }
+        .bildgalleri {
+            padding: 40px 20px;
+            background-color: #fffaf0;
+            text-align: center;
+        }
+
+
+
+
+        .bildgalleri h2 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+
+
+
+        .rutnats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+
+
+
+        .ruta {
+            background-color: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+
+
+
+        .ruta:hover {
+            transform: scale(1.02);
+        }
+
+
+
+
+        .ruta img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+
+
+
+        .ruta p {
+            margin-top: 10px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+
+
+
+<header>
+    <h1>Torg i Malmö</h1>
+</header>
+
+
+
+
+<nav>
+    <a href="#mollan">Möllevångstorget</a>
+    <a href="#lilla">Lilla Torg</a>
+    <a href="#gustav">Gustav Adolfs Torg</a>
+    <a href="#bilder"> Bilder</a>
+    <a href="#karta">Karta</a>
+</nav>
+
+
+
+
+<div class="container">
+
+
+
+
+    <div class="torg" id="mollan">
+    <h2>🥬 Möllevångstorget</h2>
+    <p>Möllevångstorget, ofta kallat "Möllan", är en livlig och mångkulturell plats med torghandel, restauranger och ett rikt kulturliv.</p>
+    <ul>
+        <li>Känt för sin dagliga torghandel med färsk frukt, grönsaker och blommor.</li>
+        <li>Omges av matställen från olika delar av världen – från falafel till vietnamesiskt.</li>
+        <li>Aktiv plats för demonstrationer, musikframträdanden och gatukonst.</li>
+        <li>Närliggande Folkets Park erbjuder ytterligare kultur och nöje.</li>
+    </ul>
+   
+   
+    <div class="top-link"><a href="#">⬆ Till toppen</a></div>
+</div>
+
+
+
+
+<div class="torg" id="lilla">
+    <h2>🍷 Lilla Torg</h2>
+    <p>Lilla Torg är ett charmigt torg i Gamla Staden, omgivet av historiska byggnader och populärt för sina uteserveringar och restauranger.</p>
+    <ul>
+        <li>Torget är bilfritt och skapar en mysig atmosfär.</li>
+        <li>Populärt under sommartid med livligt folkliv och kvällsaktiviteter.</li>
+        <li>Omgivet av korsvirkeshus från 1500- och 1600-talet.</li>
+        <li>Värd för marknader, julfirande och stadsevenemang.</li>
+    </ul>
+   
+   
+    <div class="top-link"><a href="#">⬆ Till toppen</a></div>
+</div>
+
+
+
+
+<div class="torg" id="gustav">
+    <h2>🏛️ Gustav Adolfs Torg</h2>
+    <p>Gustav Adolfs Torg, ofta kallat "Gustav", är ett centralt beläget torg som fungerar som en knutpunkt för kollektivtrafik och omges av butiker och kontor.</p>
+    <ul>
+        <li>En av Malmös största trafikknutpunkter för bussar.</li>
+        <li>Plats för politiska tal, demonstrationer och större evenemang.</li>
+        <li>Omgivet av butiker, caféer, banker och kontorsbyggnader.</li>
+        <li>Under vintertid finns ofta isrink och juldekorationer.</li>
+    </ul>
+ 
+   <div class="top-link"><a href="#">⬆ Till toppen</a></div>
+
+
+
+
+</div>
+
+
+
+
+<section class="bildgalleri">
+    <h2>📸 Malmö i bilder</h2>
     <div class="rutnats">
         <div class="ruta">
             <img src="img/bild1.jpg" alt="Bild 1">
@@ -53,7 +279,7 @@
 
 
 </body>
-<img src="img/IMG_5098.jpeg" alt="Bild 6">
+
 
 
 </script>
