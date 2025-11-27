@@ -1,286 +1,247 @@
 <!DOCTYPE html>
+<html>
+<h1>
+<!DOCTYPE html>
 <html lang="sv">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Torg i Malmö</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f39c12;
-            color: #2c3e50;
-        }
-        header {
-            background-color: #fff;
-            padding: 20px 0;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        h1 {
-            margin: 0;
-            font-size: 2.5em;
-        }
-        nav {
-            background-color: #2c3e50;
-            padding: 10px;
-            text-align: center;
-        }
-        nav a {
-            color: white;
-            margin: 0 15px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .container {
-            padding: 20px;
-            max-width: 1000px;
-            margin: auto;
-        }
-        .torg {
-            background-color: white;
-            padding: 20px;
-            margin-bottom: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-        .torg:hover {
-            transform: scale(1.01);
-        }
-        .torg img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            margin-top: 10px;
-        }
-        iframe {
-            width: 100%;
-            height: 400px;
-            border: none;
-            border-radius: 10px;
-        }
-        footer {
-            text-align: center;
-            padding: 15px;
-            background-color: #2c3e50;
-            color: white;
-        }
-        .top-link {
-            display: block;
-            text-align: right;
-            margin-top: -20px;
-            margin-bottom: 20px;
-        }
-        .top-link a {
-            text-decoration: none;
-            color: #2980b9;
-            font-weight: bold;
-        }
-        .bildgalleri {
-            padding: 40px 20px;
-            background-color: #fffaf0;
-            text-align: center;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bilar – Historik, Nutid och Framtid</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Roboto',sans-serif;background:#000;color:#fff;overflow-x:hidden;position:relative;}
 
+/* Navbar */
+nav{position:fixed;top:0;width:100%;display:flex;justify-content:center;gap:30px;padding:15px 0;background:rgba(0,0,0,0.7);z-index:50;backdrop-filter:blur(5px);}
+nav a{color:#fff;text-decoration:none;font-weight:500;font-size:1.1rem;transition:color 0.3s;}
+nav a:hover{color:#ffcc00;}
 
+/* Stars */
+.star{position:fixed;border-radius:50%;background:white;z-index:0;opacity:0.5;animation:twinkle infinite alternate;}
+@keyframes twinkle{from{opacity:0.2;}to{opacity:1;}}
 
+/* Light beams / particles */
+.light-beam{position:fixed;width:2px;height:100px;background:linear-gradient(180deg, rgba(255,255,255,0.4), rgba(255,255,255,0));top:-150px;left:0;opacity:0.1;transform:rotate(30deg);z-index:0;pointer-events:none;}
 
-        .bildgalleri h2 {
-            color: #2c3e50;
-            margin-bottom: 30px;
-            font-size: 2em;
-        }
+/* Header */
+header{text-align:center;padding:180px 20px 100px;position:relative;z-index:10;overflow:hidden;}
+header h1{font-size:3rem;margin-bottom:15px;transform:translateZ(0);animation:headerShine 3s linear infinite;}
+header p{font-size:1.2rem;color:#ccc;opacity:0;animation:fadeInUp 2s ease forwards;animation-delay:0.5s;}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes headerShine{0%{text-shadow:0 0 2px #ffcc00;}50%{text-shadow:0 0 15px #ffcc00;}100%{text-shadow:0 0 2px #ffcc00;}}
 
+/* Sections */
+section{padding:80px 20px;max-width:1000px;margin:0 auto;position:relative;z-index:10;}
+section h2{font-size:2.5rem;margin-bottom:20px;border-bottom:2px solid #ffcc00;display:inline-block;opacity:0;transform:scale(0.8) rotate(-10deg);}
 
+/* Cards grid */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;}
 
+/* Cards */
+.card{background: rgba(255,255,255,0.05);padding:20px;border-radius:15px;box-shadow:0 0 20px rgba(255,255,0,0.2);transition:transform 0.5s, box-shadow 0.5s;opacity:0;transform:translateY(50px) rotate(-5deg) scale(0.9);overflow:hidden;position:relative;z-index:10;}
+.card.show{opacity:1;transform:translateY(0) rotate(0deg) scale(1);transition:all 0.8s ease-out;}
+.card:hover{transform:scale(1.05) translateY(-5px);box-shadow:0 0 50px #ffcc00;animation:glowPulse 1s infinite alternate;}
+@keyframes glowPulse{from{box-shadow:0 0 40px #ffcc00;}to{box-shadow:0 0 60px #ffcc00;}}
 
-        .rutnats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+/* Card images */
+.card img{width:100%;border-radius:15px;opacity:0;transform:translateY(20px);animation:fadeInUp 1s forwards;animation-delay:0.3s;}
 
+/* SVG Circular Chart */
+.circular-chart{display:block;margin:10px auto;max-width:80px;max-height:80px;}
+.circle-bg{fill:none;stroke:#eee;stroke-width:3.8;}
+.circle{fill:none;stroke-width:3.8;stroke:#ffcc00;stroke-linecap:round;stroke-dasharray:0,100;transition:stroke-dasharray 1s ease-out;}
+.percentage{fill:#fff;font-size:0.5em;text-anchor:middle;}
 
-
-
-        .ruta {
-            background-color: white;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-
-
-
-
-        .ruta:hover {
-            transform: scale(1.02);
-        }
-
-
-
-
-        .ruta img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
-
-
-
-
-        .ruta p {
-            margin-top: 10px;
-            font-weight: 500;
-        }
-    </style>
+/* Footer */
+footer{text-align:center;padding:40px 20px;font-size:0.9rem;color:#ccc;position:relative;z-index:10;}
+</style>
 </head>
 <body>
 
-
-
-
-<header>
-    <h1>Torg i Malmö</h1>
-</header>
-
-
-
-
+<!-- Navbar -->
 <nav>
-    <a href="#mollan">Möllevångstorget</a>
-    <a href="#lilla">Lilla Torg</a>
-    <a href="#gustav">Gustav Adolfs Torg</a>
-    <a href="#bilder"> Bilder</a>
-    <a href="#karta">Karta</a>
+  <a href="#historik">Historik</a>
+  <a href="#nutid">Nutid</a>
+  <a href="#framtid">Framtid</a>
 </nav>
 
+<!-- Header -->
+<header>
+  <h1>Bilar – Från Historik till Framtid</h1>
+  <p>Utforska bilarnas utveckling, dagens innovationer och framtidens visioner.</p>
+</header>
 
-
-
-<div class="container">
-
-
-
-
-    <div class="torg" id="mollan">
-    <h2>🥬 Möllevångstorget</h2>
-    <p>Möllevångstorget, ofta kallat "Möllan", är en livlig och mångkulturell plats med torghandel, restauranger och ett rikt kulturliv.</p>
-    <ul>
-        <li>Känt för sin dagliga torghandel med färsk frukt, grönsaker och blommor.</li>
-        <li>Omges av matställen från olika delar av världen – från falafel till vietnamesiskt.</li>
-        <li>Aktiv plats för demonstrationer, musikframträdanden och gatukonst.</li>
-        <li>Närliggande Folkets Park erbjuder ytterligare kultur och nöje.</li>
-    </ul>
-   
-   
-    <div class="top-link"><a href="#">⬆ Till toppen</a></div>
-</div>
-
-
-
-
-<div class="torg" id="lilla">
-    <h2>🍷 Lilla Torg</h2>
-    <p>Lilla Torg är ett charmigt torg i Gamla Staden, omgivet av historiska byggnader och populärt för sina uteserveringar och restauranger.</p>
-    <ul>
-        <li>Torget är bilfritt och skapar en mysig atmosfär.</li>
-        <li>Populärt under sommartid med livligt folkliv och kvällsaktiviteter.</li>
-        <li>Omgivet av korsvirkeshus från 1500- och 1600-talet.</li>
-        <li>Värd för marknader, julfirande och stadsevenemang.</li>
-    </ul>
-   
-   
-    <div class="top-link"><a href="#">⬆ Till toppen</a></div>
-</div>
-
-
-
-
-<div class="torg" id="gustav">
-    <h2>🏛️ Gustav Adolfs Torg</h2>
-    <p>Gustav Adolfs Torg, ofta kallat "Gustav", är ett centralt beläget torg som fungerar som en knutpunkt för kollektivtrafik och omges av butiker och kontor.</p>
-    <ul>
-        <li>En av Malmös största trafikknutpunkter för bussar.</li>
-        <li>Plats för politiska tal, demonstrationer och större evenemang.</li>
-        <li>Omgivet av butiker, caféer, banker och kontorsbyggnader.</li>
-        <li>Under vintertid finns ofta isrink och juldekorationer.</li>
-    </ul>
- 
-   <div class="top-link"><a href="#">⬆ Till toppen</a></div>
-
-
-
-
-</div>
-
-
-
-
-<section class="bildgalleri">
-    <h2>📸 Malmö i bilder</h2>
-    <div class="rutnats">
-        <div class="ruta">
-            <img src="img/IMG_5104.jpeg" alt="Bild 1">
-            <p>Beskrivning av plats 1</p>
-        </div>
-        <div class="ruta">
-            <img src="img/IMG_5106.jpeg" alt="Bild 2">
-            <p>Beskrivning av plats 2</p>
-        </div>
-        <div class="ruta">
-            <img src="img/IMG_5091.jpeg"alt="Bild 3">
-            <p>Lilla torg</p>
-        </div>
-        <div class="ruta">
-            <img src="img/IMG_5092.jpeg" alt="Bild 4">
-            <p>Lilla torg</p>
-        </div>
-        <div class="ruta">
-            <img src="img/IMG_5094.jpeg" alt="Bild 5">
-            <p>Gustav Adolfs Torg</p>
-        </div>
-        <div class="ruta">
-            <img src="img/IMG_5095.jpeg" alt="Bild 6">
-            <p>Gustav Adolfs Torg</p>
-        </div>
+<!-- Historik -->
+<section id="historik">
+  <h2>Historik</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Tidiga bilar</h3>
+      <p style="font-size:0.9rem;">
+        De första bilarna byggdes på 1880-talet och var ofta handgjorda. Förbränningsmotorer och karosser i trä dominerade, och varje bil var unik. Dessa fordon revolutionerade transport och gav människor ny frihet. Pionjärer som Benz och Daimler satte grunden för framtidens bilar. Den tidiga utvecklingen visade innovation, experimentlusta och tekniskt mod. Många av dessa bilar är idag museiföremål som symboliserar början på en industri som skulle förändra världen.
+      </p>
+      <img src="första bilen.jpg" alt="Första bilen">
     </div>
-    <div class="top-link"><a href="#">⬆ Till toppen</a></div>
+    <div class="card">
+      <h3>Utveckling</h3>
+      <p style="font-size:0.9rem;">
+        Massproduktion och teknikförbättringar under 1900-talet gjorde bilar tillgängliga för fler. Säkerhetsbälten, automatlådor och förbättrade motorer ökade komfort och säkerhet. Företag som Ford, Volkswagen och Mercedes revolutionerade tillverkning och design. Klassiska modeller som Beetle, Mustang och 911 blev symboler för kvalitet och stil. Bilens roll i samhället växte och den blev en integrerad del av vardagen, både som transportmedel och som kulturikon.
+      </p>
+      <img src="utvekling av bilar.jpg" alt="Utveckling av bilar">
+    </div>
+    <div class="card">
+      <h3>Klassiker</h3>
+      <p style="font-size:0.9rem;">
+        Kända modeller från bilens historia visar innovation och design. Volkswagen Beetle, Porsche 911 och Mercedes-modeller satte standarden för både stil och prestanda. Dessa klassiker inspirerar fortfarande nya generationer och är ofta samlarobjekt. Motorsport och bilklubbar bidrog till en stark bilkultur, och många entusiaster bevarar fordonen för framtiden. Historiska bilar visar vägen från experiment till modern teknik och design.
+      </p>
+      <img src="volskwagen.jpg" alt="Volkswagen klassiker">
+    </div>
+  </div>
 </section>
 
-
-
-
-
-
-
-
-<section>
-    <h2>Karta</h2>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2243.3699523916757!2d13.000807215930224!3d55.60529298051902!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4653a1d420b16849%3A0xb59e650e7f12be20!2sGustav%20Adolfs%20Torg%2C%20Malm%C3%B6!5e0!3m2!1ssv!2sse!4v1614772464822!5m2!1ssv!2sse"></iframe>
-  <div class="top-link"><a href="#">⬆ Till toppen</a></div>
+<!-- Nutid -->
+<section id="nutid">
+  <h2>Nutid</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Teknik och innovation</h3>
+      <p style="font-size:0.9rem;">
+        Dagens bilindustri präglas av elbilar, hybrider och självkörande fordon. AI, smarta sensorer och batteriteknik gör transporten effektivare och säkrare. Tesla och Mercedes satsar på innovation, miljövänliga lösningar och avancerade funktioner. Den moderna bilens teknologi förändrar vardag, säkerhet och mobilitet. Bilar blir mer än transport – de är plattformar för teknik och innovation som formar framtidens samhälle.
+      </p>
+      <img src="inppvation.jpg" alt="Innovation">
+    </div>
+    <div class="card">
+      <h3>Populära modeller</h3>
+      <p style="font-size:0.9rem;">
+        Moderna bilar som Tesla Model 3, Volvo XC90 och Toyota Prius kombinerar komfort, säkerhet och miljövänlighet. Konsumenter värdesätter energieffektivitet, design och avancerade funktioner. Marknaden drivs av hållbarhet och teknik, vilket gör moderna bilar både praktiska och attraktiva. Populära modeller speglar dagens krav på stil, innovation och miljömedvetenhet.
+      </p>
+      <img src="miljö.jpg" alt="Miljömedvetna bilar">
+    </div>
+  </div>
 </section>
-</iframe>
 
+<!-- Framtid -->
+<section id="framtid">
+  <h2>Framtid</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Elektrifiering</h3>
+      <p style="font-size:0.9rem;">
+        Framtidens motorer drivs av el och bränsleceller. Batteriteknik och smart laddinfrastruktur förbättrar prestanda och räckvidd. Hållbara material och återvinning minskar miljöpåverkan. Tesla, Mercedes och andra satsar på innovation och energieffektiva lösningar. Transport blir tystare, renare och mer effektiv. Elektrifiering är central för en grönare framtid och driver utveckling i hela industrin.
+      </p>
+      <img src="mercedes.jpg" alt="Mercedes framtid">
+    </div>
+    <div class="card">
+      <h3>Självkörande bilar</h3>
+      <p style="font-size:0.9rem;">
+        Autonoma fordon förändrar stadens logistik och hur människor rör sig. AI och sensorer gör körning säkrare. Kommunikation mellan fordon och infrastruktur minskar köer och olyckor. Självkörande bilar ger nya möjligheter för människor som inte kan köra. Pilotprojekt över hela världen visar vägen för smarta, hållbara städer och mobilitetssystem.
+      </p>
+      <img src="inppvation.jpg" alt="Självkörande innovation">
+    </div>
+    <div class="card">
+      <h3>Hållbarhet</h3>
+      <p style="font-size:0.9rem;">
+        Miljövänliga transporter och hållbara material blir avgörande. Återvinning, biokompositer och lättviktsmaterial minskar utsläpp. Längre livslängd på fordon och energieffektiva motorer optimerar användning. Grön innovation prioriteras av både företag och konsumenter, vilket formar morgondagens hållbara mobilitet. Hållbarhet blir både teknologisk och kulturell nödvändighet.
+      </p>
+      <img src="miljö.jpg" alt="Hållbarhet">
+    </div>
+    <div class="card">
+      <h3>Visionära koncept</h3>
+      <p style="font-size:0.9rem;">
+        Flygande bilar, hyperloop och smarta stadsfordon är visionära koncept som kan förändra transporten. Innovativ design kombinerar teknik, estetik och funktion. Dessa prototyper visar framtidens potential, minskar trängsel och integrerar energi- och trafiklösningar. De inspirerar ingenjörer och designers att tänka bortom traditionella lösningar och utforska nästa generations mobilitet.
+      </p>
+      <img src="första bilen.jpg" alt="Visionära koncept">
+    </div>
+  </div>
+</section>
 
+<footer>&copy; 2025 Bilhemsida. Alla rättigheter reserverade.</footer>
 
+<script>
+// Stars
+function createStarField(numStars){
+  document.querySelectorAll('.star').forEach(s=>s.remove());
+  if(window.innerWidth<600) numStars=150;
+  for(let i=0;i<numStars;i++){
+    const star=document.createElement('div');
+    star.classList.add('star');
+    const layer=Math.random();
+    const size=layer*2+1;
+    star.style.width=size+'px';
+    star.style.height=size+'px';
+    star.style.top=Math.random()*window.innerHeight+'px';
+    star.style.left=Math.random()*window.innerWidth+'px';
+    star.style.opacity=0.2+(1-layer)*0.8;
+    star.style.animationDuration=(1+layer*4)+'s';
+    star.dataset.speed=0.1+(1-layer)*0.5;
+    document.body.appendChild(star);
+  }
+}
+createStarField(400);
+window.addEventListener('resize',()=>createStarField(400));
 
-<footer>
-    &copy; 2025 Din Malmöguide
-</footer>
+// Light beams
+const numBeams=30;
+for(let i=0;i<numBeams;i++){
+  const beam=document.createElement('div');
+  beam.classList.add('light-beam');
+  beam.style.left=Math.random()*window.innerWidth+'px';
+  beam.style.height=(50+Math.random()*150)+'px';
+  beam.style.opacity=0.05+Math.random()*0.15;
+  beam.dataset.speed=0.05+Math.random()*0.1;
+  document.body.appendChild(beam);
+}
 
+window.addEventListener('scroll',()=>{
+  const scrollY=window.scrollY;
+  document.querySelectorAll('.star').forEach(star=>{
+    const speed=parseFloat(star.dataset.speed);
+    star.style.transform=`translateY(${scrollY*speed}px)`;
+  });
+  document.querySelectorAll('.light-beam').forEach(beam=>{
+    const speed=parseFloat(beam.dataset.speed);
+    beam.style.transform=`translateY(${scrollY*speed}px)`;
+  });
+});
 
+// Scroll reveal & fill SVG
+const cards=document.querySelectorAll('.card');
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach((entry,i)=>{
+    if(entry.isIntersecting){
+      setTimeout(()=>entry.target.classList.add('show'),i*150);
+      const img=entry.target.querySelector('img');
+      if(img) img.style.animation='fadeInUp 1s forwards';
+      const circle=entry.target.querySelector('.circle');
+      const text=entry.target.querySelector('.percentage');
+      if(circle && text){
+        let percent=Math.floor(Math.random()*90+10);
+        circle.style.strokeDasharray=`${percent},100`;
+        text.textContent=percent+'%';
+      }
+    }
+  });
+},{threshold:0.5});
 
+cards.forEach(card=>observer.observe(card));
 
-</body>
-
-
-
+// Section h2 animations
+const sections=document.querySelectorAll('section h2');
+const sectionObserver=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.style.opacity=1;
+      entry.target.style.transform='scale(1) rotate(0deg)';
+      entry.target.style.transition='all 0.8s ease-out';
+    }
+  });
+},{threshold:0.3});
+sections.forEach(sec=>sectionObserver.observe(sec));
 </script>
+</body>
+</html>
+
+</h1>
 </html>
