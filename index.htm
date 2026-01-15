@@ -1,247 +1,214 @@
 <!DOCTYPE html>
-<html>
-<h1>
-<!DOCTYPE html>
 <html lang="sv">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bilar – Historik, Nutid och Framtid</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{font-family:'Roboto',sans-serif;background:#000;color:#fff;overflow-x:hidden;position:relative;}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Roboto', sans-serif;
+  background:#0b0b0b;
+  color:#fff;
+}
 
 /* Navbar */
-nav{position:fixed;top:0;width:100%;display:flex;justify-content:center;gap:30px;padding:15px 0;background:rgba(0,0,0,0.7);z-index:50;backdrop-filter:blur(5px);}
-nav a{color:#fff;text-decoration:none;font-weight:500;font-size:1.1rem;transition:color 0.3s;}
-nav a:hover{color:#ffcc00;}
+nav{
+  position:fixed;
+  top:0;
+  width:100%;
+  background:#000;
+  padding:15px;
+  text-align:center;
+  z-index:10;
+}
 
-/* Stars */
-.star{position:fixed;border-radius:50%;background:white;z-index:0;opacity:0.5;animation:twinkle infinite alternate;}
-@keyframes twinkle{from{opacity:0.2;}to{opacity:1;}}
+nav a{
+  color:#fff;
+  margin:0 15px;
+  text-decoration:none;
+  font-weight:bold;
+}
 
-/* Light beams / particles */
-.light-beam{position:fixed;width:2px;height:100px;background:linear-gradient(180deg, rgba(255,255,255,0.4), rgba(255,255,255,0));top:-150px;left:0;opacity:0.1;transform:rotate(30deg);z-index:0;pointer-events:none;}
+nav a:hover{
+  color:#ffcc00;
+}
 
 /* Header */
-header{text-align:center;padding:180px 20px 100px;position:relative;z-index:10;overflow:hidden;}
-header h1{font-size:3rem;margin-bottom:15px;transform:translateZ(0);animation:headerShine 3s linear infinite;}
-header p{font-size:1.2rem;color:#ccc;opacity:0;animation:fadeInUp 2s ease forwards;animation-delay:0.5s;}
-@keyframes fadeInUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
-@keyframes headerShine{0%{text-shadow:0 0 2px #ffcc00;}50%{text-shadow:0 0 15px #ffcc00;}100%{text-shadow:0 0 2px #ffcc00;}}
+header{
+  padding:150px 20px 80px;
+  text-align:center;
+}
+
+header h1{
+  font-size:3rem;
+  margin-bottom:10px;
+}
+
+header p{
+  color:#ccc;
+  font-size:1.1rem;
+}
 
 /* Sections */
-section{padding:80px 20px;max-width:1000px;margin:0 auto;position:relative;z-index:10;}
-section h2{font-size:2.5rem;margin-bottom:20px;border-bottom:2px solid #ffcc00;display:inline-block;opacity:0;transform:scale(0.8) rotate(-10deg);}
+section{
+  padding:80px 20px;
+  max-width:1000px;
+  margin:auto;
+}
 
-/* Cards grid */
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;}
+section h2{
+  font-size:2.3rem;
+  margin-bottom:30px;
+  border-bottom:2px solid #ffcc00;
+  display:inline-block;
+}
 
 /* Cards */
-.card{background: rgba(255,255,255,0.05);padding:20px;border-radius:15px;box-shadow:0 0 20px rgba(255,255,0,0.2);transition:transform 0.5s, box-shadow 0.5s;opacity:0;transform:translateY(50px) rotate(-5deg) scale(0.9);overflow:hidden;position:relative;z-index:10;}
-.card.show{opacity:1;transform:translateY(0) rotate(0deg) scale(1);transition:all 0.8s ease-out;}
-.card:hover{transform:scale(1.05) translateY(-5px);box-shadow:0 0 50px #ffcc00;animation:glowPulse 1s infinite alternate;}
-@keyframes glowPulse{from{box-shadow:0 0 40px #ffcc00;}to{box-shadow:0 0 60px #ffcc00;}}
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:20px;
+}
 
-/* Card images */
-.card img{width:100%;border-radius:15px;opacity:0;transform:translateY(20px);animation:fadeInUp 1s forwards;animation-delay:0.3s;}
+.card{
+  background:#111;
+  padding:20px;
+  border-radius:15px;
+  box-shadow:0 0 15px rgba(255,204,0,0.2);
+  transition:transform 0.3s;
+  opacity:0;
+  transform:translateY(40px);
+}
 
-/* SVG Circular Chart */
-.circular-chart{display:block;margin:10px auto;max-width:80px;max-height:80px;}
-.circle-bg{fill:none;stroke:#eee;stroke-width:3.8;}
-.circle{fill:none;stroke-width:3.8;stroke:#ffcc00;stroke-linecap:round;stroke-dasharray:0,100;transition:stroke-dasharray 1s ease-out;}
-.percentage{fill:#fff;font-size:0.5em;text-anchor:middle;}
+.card.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.card:hover{
+  transform:scale(1.05);
+}
+
+.card h3{
+  margin-bottom:10px;
+}
+
+.card p{
+  font-size:0.9rem;
+  color:#ccc;
+}
+
+.card img{
+  width:100%;
+  margin-top:15px;
+  border-radius:10px;
+}
 
 /* Footer */
-footer{text-align:center;padding:40px 20px;font-size:0.9rem;color:#ccc;position:relative;z-index:10;}
+footer{
+  text-align:center;
+  padding:40px;
+  color:#aaa;
+  font-size:0.9rem;
+}
 </style>
 </head>
+
 <body>
 
-<!-- Navbar -->
 <nav>
   <a href="#historik">Historik</a>
   <a href="#nutid">Nutid</a>
   <a href="#framtid">Framtid</a>
 </nav>
 
-<!-- Header -->
 <header>
   <h1>Bilar – Från Historik till Framtid</h1>
-  <p>Utforska bilarnas utveckling, dagens innovationer och framtidens visioner.</p>
+  <p>Utvecklingen av bilar genom tiderna och framtidens visioner.</p>
 </header>
 
-<!-- Historik -->
 <section id="historik">
   <h2>Historik</h2>
   <div class="cards">
     <div class="card">
       <h3>Tidiga bilar</h3>
-      <p style="font-size:0.9rem;">
-        De första bilarna byggdes på 1880-talet och var ofta handgjorda. Förbränningsmotorer och karosser i trä dominerade, och varje bil var unik. Dessa fordon revolutionerade transport och gav människor ny frihet. Pionjärer som Benz och Daimler satte grunden för framtidens bilar. Den tidiga utvecklingen visade innovation, experimentlusta och tekniskt mod. Många av dessa bilar är idag museiföremål som symboliserar början på en industri som skulle förändra världen.
-      </p>
-      <img src="första bilen.jpg" alt="Första bilen">
+      <p>De första bilarna byggdes på 1800-talet och var handgjorda. De förändrade sättet människor reste på.</p>
+      <img src="första bilen.jpg">
     </div>
+
     <div class="card">
       <h3>Utveckling</h3>
-      <p style="font-size:0.9rem;">
-        Massproduktion och teknikförbättringar under 1900-talet gjorde bilar tillgängliga för fler. Säkerhetsbälten, automatlådor och förbättrade motorer ökade komfort och säkerhet. Företag som Ford, Volkswagen och Mercedes revolutionerade tillverkning och design. Klassiska modeller som Beetle, Mustang och 911 blev symboler för kvalitet och stil. Bilens roll i samhället växte och den blev en integrerad del av vardagen, både som transportmedel och som kulturikon.
-      </p>
-      <img src="utvekling av bilar.jpg" alt="Utveckling av bilar">
+      <p>Under 1900-talet utvecklades massproduktion, säkerhet och komfort snabbt.</p>
+      <img src="utvekling av bilar.jpg">
     </div>
+
     <div class="card">
       <h3>Klassiker</h3>
-      <p style="font-size:0.9rem;">
-        Kända modeller från bilens historia visar innovation och design. Volkswagen Beetle, Porsche 911 och Mercedes-modeller satte standarden för både stil och prestanda. Dessa klassiker inspirerar fortfarande nya generationer och är ofta samlarobjekt. Motorsport och bilklubbar bidrog till en stark bilkultur, och många entusiaster bevarar fordonen för framtiden. Historiska bilar visar vägen från experiment till modern teknik och design.
-      </p>
-      <img src="volskwagen.jpg" alt="Volkswagen klassiker">
+      <p>Klassiska modeller som Beetle och Porsche 911 är fortfarande populära idag.</p>
+      <img src="volskwagen.jpg">
     </div>
   </div>
 </section>
 
-<!-- Nutid -->
 <section id="nutid">
   <h2>Nutid</h2>
   <div class="cards">
     <div class="card">
-      <h3>Teknik och innovation</h3>
-      <p style="font-size:0.9rem;">
-        Dagens bilindustri präglas av elbilar, hybrider och självkörande fordon. AI, smarta sensorer och batteriteknik gör transporten effektivare och säkrare. Tesla och Mercedes satsar på innovation, miljövänliga lösningar och avancerade funktioner. Den moderna bilens teknologi förändrar vardag, säkerhet och mobilitet. Bilar blir mer än transport – de är plattformar för teknik och innovation som formar framtidens samhälle.
-      </p>
-      <img src="inppvation.jpg" alt="Innovation">
+      <h3>Teknik</h3>
+      <p>Elbilar, AI och smarta system dominerar dagens bilindustri.</p>
+      <img src="inppvation.jpg">
     </div>
+
     <div class="card">
       <h3>Populära modeller</h3>
-      <p style="font-size:0.9rem;">
-        Moderna bilar som Tesla Model 3, Volvo XC90 och Toyota Prius kombinerar komfort, säkerhet och miljövänlighet. Konsumenter värdesätter energieffektivitet, design och avancerade funktioner. Marknaden drivs av hållbarhet och teknik, vilket gör moderna bilar både praktiska och attraktiva. Populära modeller speglar dagens krav på stil, innovation och miljömedvetenhet.
-      </p>
-      <img src="miljö.jpg" alt="Miljömedvetna bilar">
+      <p>Moderna bilar kombinerar miljövänlighet, design och säkerhet.</p>
+      <img src="miljö.jpg">
     </div>
   </div>
 </section>
 
-<!-- Framtid -->
 <section id="framtid">
   <h2>Framtid</h2>
   <div class="cards">
     <div class="card">
-      <h3>Elektrifiering</h3>
-      <p style="font-size:0.9rem;">
-        Framtidens motorer drivs av el och bränsleceller. Batteriteknik och smart laddinfrastruktur förbättrar prestanda och räckvidd. Hållbara material och återvinning minskar miljöpåverkan. Tesla, Mercedes och andra satsar på innovation och energieffektiva lösningar. Transport blir tystare, renare och mer effektiv. Elektrifiering är central för en grönare framtid och driver utveckling i hela industrin.
-      </p>
-      <img src="mercedes.jpg" alt="Mercedes framtid">
+      <h3>El & hållbarhet</h3>
+      <p>Framtidens bilar blir mer miljövänliga och energieffektiva.</p>
+      <img src="mercedes.jpg">
     </div>
+
     <div class="card">
       <h3>Självkörande bilar</h3>
-      <p style="font-size:0.9rem;">
-        Autonoma fordon förändrar stadens logistik och hur människor rör sig. AI och sensorer gör körning säkrare. Kommunikation mellan fordon och infrastruktur minskar köer och olyckor. Självkörande bilar ger nya möjligheter för människor som inte kan köra. Pilotprojekt över hela världen visar vägen för smarta, hållbara städer och mobilitetssystem.
-      </p>
-      <img src="inppvation.jpg" alt="Självkörande innovation">
-    </div>
-    <div class="card">
-      <h3>Hållbarhet</h3>
-      <p style="font-size:0.9rem;">
-        Miljövänliga transporter och hållbara material blir avgörande. Återvinning, biokompositer och lättviktsmaterial minskar utsläpp. Längre livslängd på fordon och energieffektiva motorer optimerar användning. Grön innovation prioriteras av både företag och konsumenter, vilket formar morgondagens hållbara mobilitet. Hållbarhet blir både teknologisk och kulturell nödvändighet.
-      </p>
-      <img src="miljö.jpg" alt="Hållbarhet">
-    </div>
-    <div class="card">
-      <h3>Visionära koncept</h3>
-      <p style="font-size:0.9rem;">
-        Flygande bilar, hyperloop och smarta stadsfordon är visionära koncept som kan förändra transporten. Innovativ design kombinerar teknik, estetik och funktion. Dessa prototyper visar framtidens potential, minskar trängsel och integrerar energi- och trafiklösningar. De inspirerar ingenjörer och designers att tänka bortom traditionella lösningar och utforska nästa generations mobilitet.
-      </p>
-      <img src="första bilen.jpg" alt="Visionära koncept">
+      <p>Autonoma bilar kan minska olyckor och göra resor säkrare.</p>
+      <img src="inppvation.jpg">
     </div>
   </div>
 </section>
 
-<footer>&copy; 2025 Bilhemsida. Alla rättigheter reserverade.</footer>
+<footer>
+  © 2025 Bilhemsida
+</footer>
 
 <script>
-// Stars
-function createStarField(numStars){
-  document.querySelectorAll('.star').forEach(s=>s.remove());
-  if(window.innerWidth<600) numStars=150;
-  for(let i=0;i<numStars;i++){
-    const star=document.createElement('div');
-    star.classList.add('star');
-    const layer=Math.random();
-    const size=layer*2+1;
-    star.style.width=size+'px';
-    star.style.height=size+'px';
-    star.style.top=Math.random()*window.innerHeight+'px';
-    star.style.left=Math.random()*window.innerWidth+'px';
-    star.style.opacity=0.2+(1-layer)*0.8;
-    star.style.animationDuration=(1+layer*4)+'s';
-    star.dataset.speed=0.1+(1-layer)*0.5;
-    document.body.appendChild(star);
-  }
-}
-createStarField(400);
-window.addEventListener('resize',()=>createStarField(400));
+const cards = document.querySelectorAll('.card');
 
-// Light beams
-const numBeams=30;
-for(let i=0;i<numBeams;i++){
-  const beam=document.createElement('div');
-  beam.classList.add('light-beam');
-  beam.style.left=Math.random()*window.innerWidth+'px';
-  beam.style.height=(50+Math.random()*150)+'px';
-  beam.style.opacity=0.05+Math.random()*0.15;
-  beam.dataset.speed=0.05+Math.random()*0.1;
-  document.body.appendChild(beam);
-}
-
-window.addEventListener('scroll',()=>{
-  const scrollY=window.scrollY;
-  document.querySelectorAll('.star').forEach(star=>{
-    const speed=parseFloat(star.dataset.speed);
-    star.style.transform=`translateY(${scrollY*speed}px)`;
-  });
-  document.querySelectorAll('.light-beam').forEach(beam=>{
-    const speed=parseFloat(beam.dataset.speed);
-    beam.style.transform=`translateY(${scrollY*speed}px)`;
+window.addEventListener('scroll', () => {
+  cards.forEach(card => {
+    const position = card.getBoundingClientRect().top;
+    if(position < window.innerHeight - 100){
+      card.classList.add('show');
+    }
   });
 });
-
-// Scroll reveal & fill SVG
-const cards=document.querySelectorAll('.card');
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach((entry,i)=>{
-    if(entry.isIntersecting){
-      setTimeout(()=>entry.target.classList.add('show'),i*150);
-      const img=entry.target.querySelector('img');
-      if(img) img.style.animation='fadeInUp 1s forwards';
-      const circle=entry.target.querySelector('.circle');
-      const text=entry.target.querySelector('.percentage');
-      if(circle && text){
-        let percent=Math.floor(Math.random()*90+10);
-        circle.style.strokeDasharray=`${percent},100`;
-        text.textContent=percent+'%';
-      }
-    }
-  });
-},{threshold:0.5});
-
-cards.forEach(card=>observer.observe(card));
-
-// Section h2 animations
-const sections=document.querySelectorAll('section h2');
-const sectionObserver=new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.style.opacity=1;
-      entry.target.style.transform='scale(1) rotate(0deg)';
-      entry.target.style.transition='all 0.8s ease-out';
-    }
-  });
-},{threshold:0.3});
-sections.forEach(sec=>sectionObserver.observe(sec));
 </script>
-</body>
-</html>
 
-</h1>
+</body>
 </html>
