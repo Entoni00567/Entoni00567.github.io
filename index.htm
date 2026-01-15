@@ -1,214 +1,444 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bilar – Historik, Nutid och Framtid</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VÄXEL | FUTURE MOBILITY</title>
+   
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+   
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+    <style>
+        /* --- CORE CSS --- */
+        :root {
+            --neon: #00ff41; /* Cyber Grön */
+            --bg: #000000;
+            --surface: #111111;
+            --text: #ffffff;
+            --text-dim: #888888;
+        }
 
-body{
-  font-family:'Roboto', sans-serif;
-  background:#0b0b0b;
-  color:#fff;
-}
 
-/* Navbar */
-nav{
-  position:fixed;
-  top:0;
-  width:100%;
-  background:#000;
-  padding:15px;
-  text-align:center;
-  z-index:10;
-}
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
 
-nav a{
-  color:#fff;
-  margin:0 15px;
-  text-decoration:none;
-  font-weight:bold;
-}
 
-nav a:hover{
-  color:#ffcc00;
-}
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-/* Header */
-header{
-  padding:150px 20px 80px;
-  text-align:center;
-}
 
-header h1{
-  font-size:3rem;
-  margin-bottom:10px;
-}
+        /* --- SCROLL REVEAL ANIMATIONER --- */
+        /* Detta är startläget för element som ska animeras */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px); /* Flyttad nedåt */
+            transition: all 1s cubic-bezier(0.5, 0, 0, 1); /* Mjuk "ease-out" animation */
+        }
 
-header p{
-  color:#ccc;
-  font-size:1.1rem;
-}
 
-/* Sections */
-section{
-  padding:80px 20px;
-  max-width:1000px;
-  margin:auto;
-}
+        /* När denna klass läggs till via JS blir elementet synligt */
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-section h2{
-  font-size:2.3rem;
-  margin-bottom:30px;
-  border-bottom:2px solid #ffcc00;
-  display:inline-block;
-}
 
-/* Cards */
-.cards{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:20px;
-}
+        /* --- NAVIGATION --- */
+        nav {
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #222;
+            position: fixed; /* Ändrat till fixed för att alltid synas */
+            width: 100%;
+            top: 0;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+        }
 
-.card{
-  background:#111;
-  padding:20px;
-  border-radius:15px;
-  box-shadow:0 0 15px rgba(255,204,0,0.2);
-  transition:transform 0.3s;
-  opacity:0;
-  transform:translateY(40px);
-}
 
-.card.show{
-  opacity:1;
-  transform:translateY(0);
-}
+        .logo {
+            font-weight: 900;
+            font-size: 1.5rem;
+            letter-spacing: -1px;
+            color: var(--text);
+        }
+        .logo span { color: var(--neon); }
+        nav ul { display: flex; list-style: none; gap: 30px; }
+        nav a {
+            text-decoration: none; color: var(--text-dim);
+            text-transform: uppercase; font-size: 0.75rem;
+            font-weight: 700; letter-spacing: 2px; transition: 0.3s;
+        }
+        nav a:hover { color: var(--neon); }
 
-.card:hover{
-  transform:scale(1.05);
-}
 
-.card h3{
-  margin-bottom:10px;
-}
+        /* --- HERO --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            /* En coolare bakgrundsbild med mörkt filter */
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 0 20px;
+        }
 
-.card p{
-  font-size:0.9rem;
-  color:#ccc;
-}
 
-.card img{
-  width:100%;
-  margin-top:15px;
-  border-radius:10px;
-}
+        /* Startanimation specifikt för Hero-texten */
+        .hero h1, .hero p, .hero .btn {
+            opacity: 0;
+            animation: heroFadeIn 1s ease-out forwards;
+        }
+        .hero h1 { animation-delay: 0.2s; }
+        .hero p { animation-delay: 0.4s; }
+        .hero .btn { animation-delay: 0.6s; }
 
-/* Footer */
-footer{
-  text-align:center;
-  padding:40px;
-  color:#aaa;
-  font-size:0.9rem;
-}
-</style>
+
+        @keyframes heroFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+
+        .hero h1 {
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 900;
+            line-height: 0.9;
+            margin-bottom: 20px;
+            letter-spacing: -4px;
+            text-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+
+        .hero p {
+            color: #ccc;
+            max-width: 600px;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+
+
+        .btn {
+            padding: 18px 40px;
+            background: var(--text);
+            color: var(--bg);
+            text-decoration: none;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            transition: 0.3s;
+            border: 1px solid var(--text);
+        }
+        .btn:hover {
+            background: var(--neon);
+            color: var(--bg);
+            border-color: var(--neon);
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.4);
+        }
+
+
+        /* --- SEKTIONER --- */
+        .container {
+            max-width: 1200px;
+            margin: 120px auto;
+            padding: 0 5%;
+        }
+
+
+        .label {
+            color: var(--neon);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+
+        h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 40px;
+            letter-spacing: -1px;
+        }
+
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+
+        .card {
+            background: var(--surface);
+            padding: 50px;
+            border: 1px solid #222;
+            transition: 0.3s;
+            height: 100%;
+        }
+        .card:hover { border-color: var(--neon); }
+        .card h3 { margin-bottom: 15px; font-size: 1.5rem; }
+        .card p { color: var(--text-dim); }
+
+
+        /* --- SWIPER SLIDER CSS --- */
+        .swiper {
+            width: 100%;
+            height: 500px;
+            border: 1px solid #222;
+        }
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #000;
+            /* Flex för att centrera innehåll i sliden */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7; /* Gör bilderna lite mörkare för att passa temat */
+        }
+        .slider-caption {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            z-index: 10;
+            text-align: left;
+        }
+        .slider-caption h3 { font-size: 2rem; margin-bottom: 10px; }
+        /* Anpassa Swiper pagination dots till neon */
+        .swiper-pagination-bullet { background: var(--text-dim); opacity: 0.5; }
+        .swiper-pagination-bullet-active { background: var(--neon); opacity: 1; }
+
+
+        /* --- DATA TABLE --- */
+        .table-container {
+            overflow-x: auto;
+            background: var(--surface);
+            border: 1px solid #222;
+        }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 25px; text-align: left; border-bottom: 1px solid #222; }
+        th { font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; }
+        .val { color: var(--neon); font-weight: 700; }
+
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 100px 5%;
+            border-top: 1px solid #111;
+            text-align: center;
+            background: var(--surface);
+        }
+        .copyright { font-size: 0.7rem; color: var(--text-dim); letter-spacing: 2px; text-transform: uppercase; }
+
+
+        /* Responsivitet */
+        @media (max-width: 900px) {
+            .grid { grid-template-columns: 1fr; gap: 40px;}
+            .hero h1 { font-size: 4rem; }
+            nav ul { display: none; } /* Döljer menyn på mobil för detta demo */
+            .swiper { height: 350px; }
+        }
+    </style>
 </head>
-
 <body>
 
-<nav>
-  <a href="#historik">Historik</a>
-  <a href="#nutid">Nutid</a>
-  <a href="#framtid">Framtid</a>
-</nav>
 
-<header>
-  <h1>Bilar – Från Historik till Framtid</h1>
-  <p>Utvecklingen av bilar genom tiderna och framtidens visioner.</p>
-</header>
+    <nav>
+        <div class="logo">VÄXEL<span>.</span></div>
+        <ul>
+            <li><a href="#history">Historia</a></li>
+            <li><a href="#present">Nutid</a></li>
+            <li><a href="#future">Framtid</a></li>
+        </ul>
+    </nav>
 
-<section id="historik">
-  <h2>Historik</h2>
-  <div class="cards">
-    <div class="card">
-      <h3>Tidiga bilar</h3>
-      <p>De första bilarna byggdes på 1800-talet och var handgjorda. De förändrade sättet människor reste på.</p>
-      <img src="första bilen.jpg">
-    </div>
 
-    <div class="card">
-      <h3>Utveckling</h3>
-      <p>Under 1900-talet utvecklades massproduktion, säkerhet och komfort snabbt.</p>
-      <img src="utvekling av bilar.jpg">
-    </div>
+    <section class="hero">
+        <span class="label">Auto-Intelligence Systems</span>
+        <h1>THE FINAL<br>DRIVE.</h1>
+        <p>Vi dokumenterar skiftet från mekanisk nostalgi till framtidens rena energi. En digital genomgång av bilens själ.</p>
+        <a href="#history" class="btn">Starta Resan</a>
+    </section>
 
-    <div class="card">
-      <h3>Klassiker</h3>
-      <p>Klassiska modeller som Beetle och Porsche 911 är fortfarande populära idag.</p>
-      <img src="volskwagen.jpg">
-    </div>
-  </div>
-</section>
 
-<section id="nutid">
-  <h2>Nutid</h2>
-  <div class="cards">
-    <div class="card">
-      <h3>Teknik</h3>
-      <p>Elbilar, AI och smarta system dominerar dagens bilindustri.</p>
-      <img src="inppvation.jpg">
-    </div>
+    <section id="history" class="container">
+        <span class="label reveal">01. Tidslinjen</span>
+        <div class="grid">
+            <div class="reveal">
+                <h2>FRÅN ÅNGA TILL<br>OKTAN.</h2>
+                <p style="color: var(--text-dim); margin-bottom: 30px;">Vi blickar tillbaka på de maskiner som definierade 1900-talet. En era av mekanisk ingenjörskonst där ljudet av motorn var lika viktigt som hastigheten.</p>
+                <div class="card">
+                    <h3>IKONERNA</h3>
+                    <p>Det handlade inte om effektivitet. Det handlade om känsla, design och friheten att åka vart man ville.</p>
+                </div>
+            </div>
 
-    <div class="card">
-      <h3>Populära modeller</h3>
-      <p>Moderna bilar kombinerar miljövänlighet, design och säkerhet.</p>
-      <img src="miljö.jpg">
-    </div>
-  </div>
-</section>
 
-<section id="framtid">
-  <h2>Framtid</h2>
-  <div class="cards">
-    <div class="card">
-      <h3>El & hållbarhet</h3>
-      <p>Framtidens bilar blir mer miljövänliga och energieffektiva.</p>
-      <img src="mercedes.jpg">
-    </div>
+            <div class="swiper mySwiper reveal">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="https://images.unsplash.com/photo-1566008885218-90abf9200ddb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Klassisk bil">
+                        <div class="slider-caption">
+                            <h3>1960-talet</h3>
+                            <p>Muskelbilarnas guldålder.</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Vintage racing">
+                        <div class="slider-caption">
+                            <h3>Tidig Racing</h3>
+                            <p>Där gränserna testades.</p>
+                        </div>
+                    </div>
+                     <div class="swiper-slide">
+                        <img src="https://images.unsplash.com/photo-1495856458515-0637185db551?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Veteranbil">
+                        <div class="slider-caption">
+                            <h3>Pionjärerna</h3>
+                            <p>Början på en ny era.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+            </div>
+    </section>
 
-    <div class="card">
-      <h3>Självkörande bilar</h3>
-      <p>Autonoma bilar kan minska olyckor och göra resor säkrare.</p>
-      <img src="inppvation.jpg">
-    </div>
-  </div>
-</section>
 
-<footer>
-  © 2025 Bilhemsida
-</footer>
+    <section id="present" class="container">
+        <span class="label reveal">02. Status Quo</span>
+        <h2 class="reveal">SYSTEM-ANALYS.</h2>
+       
+        <div class="table-container reveal">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Teknologi</th>
+                        <th>Status</th>
+                        <th>Effektivitet (Energi)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Förbränningsmotorer (ICE)</td>
+                        <td>Fasas ut globalt</td>
+                        <td style="color: #ff3333;">~25% (Låg)</td>
+                    </tr>
+                    <tr>
+                        <td>Batteri-Elektrisk (BEV)</td>
+                        <td class="val">DOMINANT STANDARD</td>
+                        <td class="val">~90% (Optimal)</td>
+                    </tr>
+                    <tr>
+                        <td>Solid-State Batterier</td>
+                        <td>Utvecklingsfas</td>
+                        <td class="val">~95% (Teoretisk)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
 
-<script>
-const cards = document.querySelectorAll('.card');
 
-window.addEventListener('scroll', () => {
-  cards.forEach(card => {
-    const position = card.getBoundingClientRect().top;
-    if(position < window.innerHeight - 100){
-      card.classList.add('show');
-    }
-  });
-});
-</script>
+    <section id="future" class="container">
+        <span class="label reveal">03. Horisont</span>
+        <div class="grid">
+            <div class="card reveal" style="border-color: var(--neon);">
+                <h3>NEURAL DRIVE / LEVEL 5</h3>
+                <p>Framtidens bilar kör inte bara sig själva – de är uppkopplade nätverk. Ratten försvinner och bilen blir en förlängning av ditt vardagsrum eller kontor. Trafikolyckor elimineras via AI-kommunikation mellan fordon.</p>
+            </div>
+            <div class="reveal">
+                <h2>FRAMTIDEN ÄR<br><span style="color: var(--neon);">AUTONOM.</span></h2>
+                <p style="color: var(--text-dim);">Vi rör oss mot en värld där ägande ersätts av tillgång (MaaS - Mobility as a Service). Den ultimata lyxen i framtiden är inte vilken bil du kör, utan vad du gör med tiden du sparar när du inte kör.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <footer>
+        <div class="logo reveal" style="margin-bottom: 20px;">VÄXEL<span>.</span></div>
+        <p class="copyright reveal">© 2026 VÄXEL CORE SYSTEMS. STATUS: ONLINE.</p>
+    </footer>
+
+
+
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+
+    <script>
+        /* --- 1. Starta Slidern --- */
+        var swiper = new Swiper(".mySwiper", {
+            spaceBetween: 0,
+            centeredSlides: true,
+            loop: true, // Gör att den snurrar för evigt
+            autoplay: {
+                delay: 3500, // Byter bild var 3.5 sekund
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+        });
+
+
+        /* --- 2. Scroll Reveal Animation --- */
+        // Detta är "ögat" som tittar om ett element syns på skärmen
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15 // Elementet måste synas 15% innan det animeras
+        };
+
+
+        const observerCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                // Om elementet syns på skärmen...
+                if (entry.isIntersecting) {
+                    // ...lägg till klassen "active" som startar animationen
+                    entry.target.classList.add('active');
+                    // Sluta titta på detta element (så det inte animeras igen)
+                    observer.unobserve(entry.target);
+                }
+            });
+        };
+
+
+        // Skapa observatören
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+
+        // Hitta alla element som har klassen "reveal" och börja observera dem
+        document.querySelectorAll('.reveal').forEach(element => {
+            observer.observe(element);
+        });
+    </script>
+
 
 </body>
 </html>
